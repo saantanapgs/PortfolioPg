@@ -1,135 +1,311 @@
-// SOFT SKILLS
-// const btnSoftSkills = document.querySelector('.btnSoftSkills')
-// const softSkills = document.querySelectorAll('.descricaoSoftSkills')
+// =========================================================
+// PORTFÓLIO | PEDRO SANTANA
+// 1. Tema claro/escuro   2. Menu (celular)   3. Carrossel
+// 4. Barras de skills    5. Formulário       6. Ano do rodapé
+// =========================================================
 
-// softSkills.forEach(el => el.classList.add('hideSoftHardSkills'))
-
-// btnSoftSkills.addEventListener('click', () => {
-//   const isHidden = softSkills[0].classList.contains('hideSoftHardSkills')
-
-//   softSkills.forEach(el => el.classList.toggle('hideSoftHardSkills'))
-
-//   btnSoftSkills.textContent = isHidden ? 'Ver menos' : 'Ver Soft Skills'
-// });
+// E-mail que vai receber as mensagens do formulário
+const EMAIL_DESTINO = 'rpggustavo56@gmail.com';
 
 
-// HARD SKILLS
-// const btnHardSkills = document.querySelector('.btnHardSkills')
-// const hardSkills = document.querySelectorAll('.descricaoHardSkills')
+// ---------- 1. TEMA CLARO / ESCURO ----------
+const btnTema = document.querySelector('#btnTema');
 
-// hardSkills.forEach(el => el.classList.add('hideSoftHardSkills'))
+function aplicarTema(tema) {
+    document.documentElement.setAttribute('data-tema', tema);
 
-// btnHardSkills.addEventListener('click', () => {
-//   const isHidden = hardSkills[0].classList.contains('hideSoftHardSkills')
+    if (tema === 'claro') {
+        btnTema.setAttribute('aria-label', 'Ativar modo escuro');
+    } else {
+        btnTema.setAttribute('aria-label', 'Ativar modo claro');
+    }
 
-//   hardSkills.forEach(el => el.classList.toggle('hideSoftHardSkills'))
+    // Salva a escolha (try/catch evita erro se o navegador bloquear o armazenamento)
+    try {
+        localStorage.setItem('tema', tema);
+    } catch (erro) {}
+}
 
-//   btnHardSkills.textContent = isHidden ? 'Ver menos' : 'Ver Hard Skills'
-// })
+// Ajusta o botão de acordo com o tema que já estava ativo ao abrir a página
+if (document.documentElement.getAttribute('data-tema') === 'claro') {
+    btnTema.setAttribute('aria-label', 'Ativar modo escuro');
+}
 
-// MENU
-const btnMenu = document.querySelector('#btnMenu')
-const menuLateral = document.querySelector('#menuLateral')
+btnTema.addEventListener('click', function () {
+    const temaAtual = document.documentElement.getAttribute('data-tema');
 
-const overlay = document.createElement('div')
-overlay.id = 'overlay'
-document.body.appendChild(overlay);
-
-btnMenu.addEventListener('click', () => {
-    menuLateral.classList.toggle('aberto')
-    overlay.classList.toggle('ativo')
+    if (temaAtual === 'claro') {
+        aplicarTema('escuro');
+    } else {
+        aplicarTema('claro');
+    }
 });
 
-overlay.addEventListener('click', () => {
-    menuLateral.classList.remove('aberto')
-    overlay.classList.remove('ativo')
-})
 
+// ---------- 2. MENU (CELULAR) ----------
+const btnMenu = document.querySelector('#btnMenu');
+const menu = document.querySelector('#menu');
 
-function btnClaroEscuro() {
-  const modoEscuro = document.querySelector('.modoEscuro');
-  const modoClaro = document.querySelector('.modoClaro');
-  const btnMenu = document.querySelector('.abrirMenu')
-
-  modoEscuro.addEventListener('click', () => {
-    modoEscuro.classList.add('hideEscuro');
-    modoClaro.classList.remove('hideClaro');
-    document.body.classList.add('modo-claro');
-        btnMenu.classList.add('invertBtn');
-  });
-
-  modoClaro.addEventListener('click', () => {
-    modoEscuro.classList.remove('hideEscuro');
-    modoClaro.classList.add('hideClaro');
-    modoClaro.classList.add('invertBtn');
-    btnMenu.classList.remove('invertBtn');
-    document.body.classList.remove('modo-claro');
-    body.style.transition = '0.5s'
-  });
+function fecharMenu() {
+    menu.classList.remove('aberto');
+    btnMenu.setAttribute('aria-expanded', 'false');
+    btnMenu.setAttribute('aria-label', 'Abrir menu');
 }
-btnClaroEscuro();
 
+btnMenu.addEventListener('click', function () {
+    const estaAberto = menu.classList.toggle('aberto');
+    btnMenu.setAttribute('aria-expanded', String(estaAberto));
+    btnMenu.setAttribute('aria-label', estaAberto ? 'Fechar menu' : 'Abrir menu');
+});
 
-const limp1 = document.querySelector('#introducao').innerHTML = ''
-const limp2 = document.querySelector('#introducaoRoxa').innerHTML = ''
-const limp3 = document.querySelector('#paragrafoFormacao').innerHTML = ''
-const limp5 = document.querySelector('#paragrafoEspecialidades').innerHTML = ''
-const limp6 = document.querySelector('#paragrafoEspecialidadesRoxo').innerHTML = ''
-const limp7 = document.querySelector('#tituloMenu').innerHTML = ''
-function digitarFraseIntroducao(frase, elemId, time = 65, callback = null) {
-  let i = 0
-  const elem = document.getElementById(elemId)
+// Fecha o menu ao clicar em um link
+menu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', fecharMenu);
+});
 
-  elem.innerHTML = ''
-
-  function escreverFrase() {
-    if(i < frase.length) {
-      elem.innerHTML += frase.charAt(i)
-      i++
-      setTimeout(escreverFrase, time)
-    } else if (callback){
-      callback()
+// Fecha o menu com a tecla Esc
+document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'Escape') {
+        fecharMenu();
     }
-  }
+});
 
-  escreverFrase()
+
+// ---------- 3. CARROSSEL DE PROJETOS ----------
+const carrossel = document.querySelector('#carrossel');
+const cards = document.querySelectorAll('.card-projeto');
+const btnAnterior = document.querySelector('#btnAnterior');
+const btnProximo = document.querySelector('#btnProximo');
+const contador = document.querySelector('#contadorProjetos');
+
+let atual = 0; // posição do card que está no meio
+
+function mostrarCards() {
+    const total = cards.length;
+    const anterior = (atual - 1 + total) % total;
+    const proximo = (atual + 1) % total;
+
+    cards.forEach(function (card, i) {
+        card.classList.remove('ativo', 'lateral', 'oculto');
+
+        if (i === atual) {
+            card.classList.add('ativo');
+            card.style.order = 1;
+        } else if (i === anterior) {
+            card.classList.add('lateral');
+            card.style.order = 0;
+        } else if (i === proximo) {
+            card.classList.add('lateral');
+            card.style.order = 2;
+        } else {
+            card.classList.add('oculto');
+        }
+    });
+
+    contador.textContent = 'Projeto ' + (atual + 1) + ' de ' + total;
 }
-  digitarFraseIntroducao('Portfólio | Pedro Santana', 'tituloMenu', 45)
-  digitarFraseIntroducao('Olá, meu nome é', 'introducao', 65, function(){
-  digitarFraseIntroducao('Pedro Santana', 'introducaoRoxa', 65, function(){
-  digitarFraseIntroducao('Técnico em Desenvolvimento de Sistemas pelo SENAI', 'paragrafoFormacao', 50, function(){ 
-  digitarFraseIntroducao('Desenvolvedor', 'paragrafoEspecialidades', 60, function(){
-  digitarFraseIntroducao('Full-Stack', 'paragrafoEspecialidadesRoxo', 60)
-})
-})
-})
-})
 
-
-function aplicarObserverVisibilidade(seletor) {
-  const elementos = document.querySelectorAll(seletor)
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visivel')
-        entry.target.classList.remove('invisivel')
-      } else {
-        entry.target.classList.remove('visivel')
-        entry.target.classList.add('invisivel')
-      }
-    })
-  }, {
-    threshold: 0.01
-  })
-
-  elementos.forEach(el => observer.observe(el))
+function irParaProximo() {
+    atual = (atual + 1) % cards.length;
+    mostrarCards();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  aplicarObserverVisibilidade('#divSobreMim')
-  aplicarObserverVisibilidade('#divHabilidades')
-  aplicarObserverVisibilidade('#divImgDireita')
-  aplicarObserverVisibilidade('#divMeio2Projetos')
-})
+function irParaAnterior() {
+    atual = (atual - 1 + cards.length) % cards.length;
+    mostrarCards();
+}
 
+btnProximo.addEventListener('click', irParaProximo);
+btnAnterior.addEventListener('click', irParaAnterior);
+
+// Clicar num card lateral traz ele para o meio (em vez de abrir o link)
+cards.forEach(function (card, i) {
+    card.addEventListener('click', function (evento) {
+        if (!card.classList.contains('ativo')) {
+            evento.preventDefault();
+            atual = i;
+            mostrarCards();
+        }
+    });
+});
+
+// Setas do teclado quando o foco está dentro do carrossel
+carrossel.addEventListener('keydown', function (evento) {
+    if (evento.key === 'ArrowRight') {
+        irParaProximo();
+    } else if (evento.key === 'ArrowLeft') {
+        irParaAnterior();
+    }
+});
+
+// Deslizar o dedo no celular
+let inicioToque = 0;
+
+carrossel.addEventListener('touchstart', function (evento) {
+    inicioToque = evento.changedTouches[0].clientX;
+});
+
+carrossel.addEventListener('touchend', function (evento) {
+    const fimToque = evento.changedTouches[0].clientX;
+    const diferenca = fimToque - inicioToque;
+
+    if (diferenca < -50) {
+        irParaProximo();
+    } else if (diferenca > 50) {
+        irParaAnterior();
+    }
+});
+
+mostrarCards();
+
+
+// ---------- 4. BARRAS DE SKILLS ----------
+const listaSkills = document.querySelector('#listaSkills');
+const barras = document.querySelectorAll('.barra-preenchida');
+
+function preencherBarras() {
+    barras.forEach(function (barra) {
+        barra.style.width = barra.dataset.nivel + '%';
+    });
+}
+
+// Preenche as barras quando a seção aparece na tela
+if ('IntersectionObserver' in window) {
+    const observador = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (entrada) {
+            if (entrada.isIntersecting) {
+                preencherBarras();
+                observador.disconnect();
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observador.observe(listaSkills);
+} else {
+    preencherBarras();
+}
+
+
+// ---------- 5. FORMULÁRIO DE CONTATO ----------
+const formulario = document.querySelector('#formContato');
+const campoNome = document.querySelector('#nome');
+const campoEmail = document.querySelector('#email');
+const campoMensagem = document.querySelector('#mensagem');
+const statusForm = document.querySelector('#statusForm');
+
+function mostrarErro(campo, texto) {
+    document.querySelector('#erro' + campo.id.charAt(0).toUpperCase() + campo.id.slice(1)).textContent = texto;
+    campo.classList.add('invalido');
+    campo.setAttribute('aria-invalid', 'true');
+}
+
+function limparErro(campo) {
+    document.querySelector('#erro' + campo.id.charAt(0).toUpperCase() + campo.id.slice(1)).textContent = '';
+    campo.classList.remove('invalido');
+    campo.removeAttribute('aria-invalid');
+}
+
+// Cada função devolve true (campo ok) ou false (campo com problema)
+function validarNome() {
+    const valor = campoNome.value.trim();
+
+    if (valor === '') {
+        mostrarErro(campoNome, 'Por favor, informe seu nome.');
+        return false;
+    }
+    if (valor.length < 3) {
+        mostrarErro(campoNome, 'O nome deve ter pelo menos 3 caracteres.');
+        return false;
+    }
+
+    limparErro(campoNome);
+    return true;
+}
+
+function validarEmail() {
+    const valor = campoEmail.value.trim();
+    const modeloEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (valor === '') {
+        mostrarErro(campoEmail, 'Por favor, informe seu e-mail.');
+        return false;
+    }
+    if (!modeloEmail.test(valor)) {
+        mostrarErro(campoEmail, 'Digite um e-mail válido, como nome@exemplo.com.');
+        return false;
+    }
+
+    limparErro(campoEmail);
+    return true;
+}
+
+function validarMensagem() {
+    const valor = campoMensagem.value.trim();
+
+    if (valor === '') {
+        mostrarErro(campoMensagem, 'Por favor, escreva sua mensagem.');
+        return false;
+    }
+    if (valor.length < 10) {
+        mostrarErro(campoMensagem, 'A mensagem deve ter pelo menos 10 caracteres.');
+        return false;
+    }
+
+    limparErro(campoMensagem);
+    return true;
+}
+
+// Valida cada campo assim que a pessoa sai dele
+campoNome.addEventListener('blur', validarNome);
+campoEmail.addEventListener('blur', validarEmail);
+campoMensagem.addEventListener('blur', validarMensagem);
+
+formulario.addEventListener('submit', function (evento) {
+    evento.preventDefault(); // impede a página de recarregar
+    statusForm.textContent = '';
+
+    // Roda as três validações (sem parar na primeira que falhar)
+    const nomeOk = validarNome();
+    const emailOk = validarEmail();
+    const mensagemOk = validarMensagem();
+
+    if (!nomeOk || !emailOk || !mensagemOk) {
+        // Leva o foco para o primeiro campo com erro
+        if (!nomeOk) {
+            campoNome.focus();
+        } else if (!emailOk) {
+            campoEmail.focus();
+        } else {
+            campoMensagem.focus();
+        }
+        return;
+    }
+
+    // Tudo certo: monta o e-mail e abre o aplicativo de e-mail da pessoa
+    const nome = campoNome.value.trim();
+    const email = campoEmail.value.trim();
+    const mensagem = campoMensagem.value.trim();
+
+    const assunto = 'Contato pelo portfólio - ' + nome;
+    const corpo = mensagem + '\n\nNome: ' + nome + '\nE-mail: ' + email;
+
+    const link = 'mailto:' + EMAIL_DESTINO +
+        '?subject=' + encodeURIComponent(assunto) +
+        '&body=' + encodeURIComponent(corpo);
+
+    formulario.reset();
+    statusForm.textContent = 'Mensagem pronta! Seu aplicativo de e-mail foi aberto para concluir o envio.';
+    window.location.href = link;
+});
+
+// Botão "Limpar": apaga também os erros e a mensagem de status
+formulario.addEventListener('reset', function () {
+    limparErro(campoNome);
+    limparErro(campoEmail);
+    limparErro(campoMensagem);
+    statusForm.textContent = '';
+});
+
+
+// ---------- 6. ANO DO RODAPÉ ----------
+document.querySelector('#anoAtual').textContent = new Date().getFullYear();

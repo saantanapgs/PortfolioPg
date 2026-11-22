@@ -1,341 +1,405 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="imgs/favicon.png">
-    <script src="js/script.js" defer></script>
+    <meta name="description" content="Portfólio de Pedro Santana, Técnico em Desenvolvimento de Sistemas e desenvolvedor Full-Stack.">
     <title>Portfólio | Pedro Santana</title>
+    <link rel="icon" href="imgs/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Roda antes de desenhar a página para evitar "piscar" de tema
+        document.documentElement.classList.add('js');
+        try {
+            var temaSalvo = localStorage.getItem('tema');
+            if (temaSalvo) {
+                document.documentElement.setAttribute('data-tema', temaSalvo);
+            }
+        } catch (erro) {}
+    </script>
+    <script src="js/script.js" defer></script>
 </head>
-<body class="modoEscuroAtivado modoClaroAtivado">
-    <section id="divSuperiorMenu">
-        <div id="divMenu">
-            <h2 id="tituloMenu">Portfólio | Pedro Santana</h2>
-        </div>
+<body>
+    <a class="pular-conteudo" href="#sobre">Pular para o conteúdo</a>
 
-        <div id="divMenuLateral">
-            <button id="btnMenu">
-                <img class="abrirMenu" src="imgs/menu.png" alt="Abrir menu">
-            </button>
-            <nav id="menuLateral" class="menu-lateral fechado">
+    <!-- ============ CABEÇALHO / MENU ============ -->
+    <header class="cabecalho">
+        <div class="cabecalho-interno">
+            <a class="marca" href="#sobre">Portfólio | Pedro Santana</a>
+
+            <nav id="menu" class="menu" aria-label="Menu principal">
                 <ul>
-                    <li><a class="secoesMenu" href="#divMeioInfos">Início</a></li>
-                    <li><a class="secoesMenu" href="#divSobreMim">Sobre Mim</a></li>
-                    <!-- <li><a class="secoesMenu" href="#divSoftHardSkills">Skills</a></li> -->
-                    <li><a class="secoesMenu" href="#divHabilidades">Habilidades Técnicas</a></li>
-                    <li><a class="secoesMenu" href="#divProjetos">Projetos</a></li>
-                    <li><a class="secoesMenu" href="#divInferiorContatos">Entre em contato</a></li>
-                </ul>
-                <ul id="areaContatos">
-                    <li><img class="imgsContatos" src="imgs/instagram.png" alt="Instagram">
-                        <a class="nomesContatos" href="https://www.instagram.com/wpgustavoo?igsh=cGdsMGl4NzNoNGk0 " target="_blank">Instagram</a></li>
-                    <li><img class="imgsContatos" src="imgs/whatsapp.png" alt="Whatsapp">
-                        <a class="nomesContatos" href="https://wa.me/5579998603465" target="_blank">Whatsapp</a></li>
-                    <li><img class="imgsContatos" src="imgs/email.png" alt="Email">
-                        <a class="nomesContatos" href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank">rpggustavo56@gmail.com</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contato">Contato</a></li>
                 </ul>
             </nav>
-        </div>
 
-        <div id="divModoEscuroClaro">
-            <button id="btnOnOff">
-                <img class="modoEscuro" src="imgs/moon.png" alt="Modo Escuro">
-                <img class="modoClaro hideClaro invertBtn" src="imgs/sun.png" alt="Modo Claro">
-            </button>
-        </div>
-        
-        <div class="linhaDivisao">
-            <hr class="linha">
-        </div>
-    </section>
+            <div class="acoes-cabecalho">
+                <button id="btnTema" class="btn-icone" type="button" aria-label="Ativar modo claro">
+                    <!-- Lua (aparece no modo escuro) -->
+                    <svg class="icone-lua" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+                    </svg>
+                    <!-- Sol (aparece no modo claro) -->
+                    <svg class="icone-sol" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4.5" fill="currentColor"/>
+                        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>
+                        </g>
+                    </svg>
+                </button>
 
-
-    <section id="divMeioInfos">
-        <div id="divImg">
-            <div id="divImgDireita">
-                <a  alt="Ir para perfil do Github" href="https://github.com/saantanapgs" target="_blank"><img id="imgDireita" src="imgs/pg.jpg"> </a>
+                <button id="btnMenu" class="btn-icone btn-hamburguer" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+                    </svg>
+                </button>
             </div>
         </div>
-        <div id="divIntroducao">
-            <h2 id="introducao">Olá, meu nome é </h2>
-            <h2 id="introducaoRoxa">Pedro Santana</h2>
+    </header>
 
-            <div id="divFormacao">
-                <p id="paragrafoFormacao">Técnico em Desenvolvimento de Sistemas pelo SENAI</p>            </div>
-            <div id="divEspecialidade">
-                <p id="paragrafoEspecialidades">Desenvolvedor</p> 
-                <p id="paragrafoEspecialidadesRoxo">Full-Stack</p>
-            </div>
-
-        </div>
-    </section>
-    <!-- <div id="divSoftHardSkills">
-        <div class="softSkills">
-            <button class="btnSoftSkills ">Ver Soft Skills</button>
-            <div id="divDescricaoSoft">
-                <p class="descricaoSoftSkills hideSoftHardSkills">Tenho um raciocínio lógico bem desenvolvido, o que me permite analisar problemas com clareza e propor soluções eficientes. Possuo uma comunicação clara e objetiva, essencial para interações produtivas com equipes técnicas e não técnicas. Trabalho muito bem em equipe, valorizando a escuta ativa, empatia e colaboração para alcançar metas conjuntas.</p>
-
-                <p class="descricaoSoftSkills hideSoftHardSkills">Sou adaptável a diferentes ambientes e tecnologias, o que facilita a atuação em projetos com requisitos variados. Minha organização contribui para uma boa gestão de tempo, cumprimento de prazos e manutenção de qualidade. Além disso, mantenho uma postura proativa, sempre buscando aprender novas ferramentas, antecipar problemas e sugerir melhorias de forma construtiva.</p>                        
-            </div>
-        </div>
-        <div class="hardSkills">
-            <button class="btnHardSkills ">Ver Hard Skills</button>
-            <div id="divDescricaoHard">
-                <p class="descricaoHardSkills hideSoftHardSkills">Tenho domínio das principais linguagens ensinadas na formação técnica, como Java, Python, C# e JavaScript, além de conhecimento em desenvolvimento com HTML e CSS. Já desenvolvi aplicações web e desktop, aplicando conceitos de interface responsiva, lógica de programação e integração básica com APIs.</p>
-
-                <p  class="descricaoHardSkills hideSoftHardSkills">Durante minha formação e projetos práticos, trabalhei com bancos de dados relacionais como MySQL e SQL Server, aplicando comandos SQL para consultas, manipulação de dados e modelagem de estruturas relacionais. Também possuo familiaridade com MongoDB, explorando o uso de bancos NoSQL. Utilizo o Git para controle de versão e colaboração em equipe com repositórios no GitHub. Tenho experiência com práticas de desenvolvimento como o uso do padrão MVC.</p>
-            </div>    
-        </div>
-    </div> -->
-
-        <div id="divSobreMim">
-            <h2 id="tituloSobreMim">Sobre Mim</h2>
-                <p class="descricaoSobreMim">Sou um Técnico em Desenvolvimento de Sistemas, com experiência em linguagens como Java, Python, C#, C++, JavaScript, React Native, HTML5 e CSS3. Atuo no desenvolvimento de aplicações web e desktop, seguindo boas práticas e foco em performance.</p> 
-            <br>
-                <p class="descricaoSobreMim">Tenho conhecimento em bancos de dados (MySQL, SQLServer, MongoDB, PostgreSQL), versionamento com Git e metodologias ágeis. Busco sempre otimizar processos, entregar soluções eficientes e contribuir de forma colaborativa com a equipe.</p> 
-            <br>
-                <p class="descricaoSobreMim">Sigo desenvolvendo projetos para o desenvolvimento pessoal e profissional, visando ingressar no mundo tecnológico como um desenvolvedor de softwares, explorando novas ferramentas e adquirindo conhecimento e experiência em ferramentas já trabalhadas.</p>
-            <br>
-                <p class="descricaoSobreMim">Além das tecnologias citadas anteriormente, tenho conhecimentos em Pacote Office(Word, Excel, PowerPoint, etc) e Google Workspace. Adotando metodologias ágeis como KanBan para desenvolver os projetos em questão.</p>
-        </div>
-
-        <div class="linhaDivisao">
-            <hr class="linhaDois">
-        </div>
-
-        <div id="divHabilidades">
-            <h2 id="tituloHabilidades">Habilidades</h2>
-            <!-- <h3 id="subDescHabilidades">Listadas abaixo as algumas das minhas habilidades classificadas por nível de experiência (do mais experiente ao menos experiente)</h3> -->
-                <div id="listaHabilidades">
-
-                    <div class="divCard">
-                        <hr class="linhaCard">
-                        <div class="linguagensProgramacao">
-                            <h3 class="nomeLinguagem">HTML-5</h3>
-                            <div class="divImgLinguagem">
-                                <img class="imgLinguagem" src="imgs/html.svg" alt="HTML-5">
-                            </div>
-                            <div class="descricaoLinguagem">
-                                <p>HTML-5 é a versão mais recente da linguagem de marcação para construção de páginas da web, incluindo recursos avançados como APIs e suporte multimídia.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                   <div class="divCard">
-                        <hr class="linhaCard">
-                        <div class="linguagensProgramacao">
-                            <h3 class="nomeLinguagem">CSS-3</h3>
-                            <div class="divImgLinguagem">
-                                <img class="imgLinguagem" src="imgs/css.svg" alt="CSS-3">                            </div>
-                        </div>
-                    </div>
-
-                    <div class="divCard">
-                        <hr class="linhaCard">
-                        <div class="linguagensProgramacao">
-                            <h3 class="nomeLinguagem">JavaScript</h3>
-                            <div class="divImgLinguagem">
-                                <img style="border-radius: 10px;" class="imgLinguagem" src="imgs/javascript.svg" alt=JavaScript">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="divCard">
-                        <hr class="linhaCard">
-                        <div class="linguagensProgramacao">
-                            <h3 class="nomeLinguagem">TypeScript</h3>
-                            <div class="divImgLinguagem">
-                                <img class="imgLinguagem" src="imgs/typescript.png" alt=TypeScript">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="divCard">
-                        <hr class="linhaCard">
-                        <div class="linguagensProgramacao">
-                            <h3 class="nomeLinguagem">React</h3>
-                            <div class="divImgLinguagem">
-                                <img class="imgLinguagem" src="imgs/react.svg" alt="React">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="divCard">
-                            <hr class="linhaCard">
-                            <div class="linguagensProgramacao">
-                                <h3 class="nomeLinguagem">Node</h3>
-                                <div class="divImgLinguagem">
-                                    <img class="imgLinguagem" src="imgs/node-js.png" alt="Node.js">
-                                </div>
-                            </div>
-                        </div>
-                    
+    <main>
+        <!-- ============ SOBRE ============ -->
+        <section id="sobre" class="secao sobre" aria-labelledby="tituloSobre">
+            <div class="container sobre-grade">
+                <div class="foto-moldura">
+                    <img src="imgs/pg.jpg" alt="Foto de Pedro Santana" width="600" height="641">
                 </div>
 
+                <div class="sobre-texto">
+                    <p class="saudacao">Olá, meu nome é</p>
+                    <h1 id="tituloSobre">Pedro Santana</h1>
+                    <p class="formacao">Técnico em Desenvolvimento de Sistemas pelo SENAI</p>
+                    <p class="especialidade">Desenvolvedor <strong>Full-Stack</strong></p>
 
-                    <div id="listaHabilidadesWrap">
-                        
-                                                <div class="divCard">
-                            <hr class="linhaCard">
-                            <div class="linguagensProgramacao">
-                                <h3 class="nomeLinguagem">C#</h3>
-                                <div class="divImgLinguagem">
-                                    <img class="imgLinguagem" src="imgs/c-sharp.png" alt=C-Sharp">
-                                </div>
+                    <p>Sou um Técnico em Desenvolvimento de Sistemas, com experiência em Java, Python, C#, C++, JavaScript, React Native, HTML5 e CSS3. Atuo no desenvolvimento de aplicações web e desktop, seguindo boas práticas e com foco em performance.</p>
+                    <p>Tenho conhecimento em bancos de dados (MySQL, SQL Server, MongoDB e PostgreSQL), versionamento com Git e metodologias ágeis como o Kanban. Busco sempre otimizar processos, entregar soluções eficientes e contribuir de forma colaborativa com a equipe.</p>
+                    <p>Sigo desenvolvendo projetos para o meu crescimento pessoal e profissional, com o objetivo de ingressar no mercado de tecnologia como desenvolvedor de software, explorando novas ferramentas e aprofundando as que já conheço. Também tenho familiaridade com o Pacote Office e o Google Workspace.</p>
+
+                    <a class="botao" href="https://github.com/saantanapgs" target="_blank" rel="noopener noreferrer">Ver meu GitHub<span class="so-leitor"> (abre em nova aba)</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PORTFÓLIO (CARROSSEL) ============ -->
+        <section id="portfolio" class="secao secao-destaque" aria-labelledby="tituloPortfolio">
+            <div class="container">
+                <h2 id="tituloPortfolio" class="titulo-secao">Portfólio</h2>
+                <p class="subtitulo-secao">Alguns dos projetos que desenvolvi. Use as setas para navegar e clique no projeto para abrir.</p>
+
+                <div class="carrossel" id="carrossel" role="region" aria-roledescription="carrossel" aria-label="Projetos do portfólio">
+                    <button id="btnAnterior" class="seta" type="button" aria-label="Projeto anterior">
+                        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M15 5v14l-10-7z"/></svg>
+                    </button>
+
+                    <div class="trilho" id="trilho">
+
+                        <article class="card-projeto">
+                            <a class="card-imagem" href="https://saantanapgs.github.io/fizzsStore/" target="_blank" rel="noopener noreferrer" aria-label="Abrir o projeto FizzSneakers (abre em nova aba)">
+                                <img src="imgsProjetos/fizzSneakers.webp" alt="Captura de tela da loja FizzSneakers com vários tênis à venda" width="900" height="471" loading="lazy">
+                            </a>
+                            <h3>FizzSneakers (API)</h3>
+                            <div class="card-detalhes">
+                                <p>Loja virtual de tênis com catálogo de produtos, botões de compra e carrinho, consumindo dados de uma API.</p>
+                                <p class="tags">HTML · CSS · JavaScript · API</p>
+                                <a class="botao botao-pequeno" href="https://saantanapgs.github.io/fizzsStore/" target="_blank" rel="noopener noreferrer">Ver projeto<span class="so-leitor"> FizzSneakers (abre em nova aba)</span></a>
                             </div>
-                        </div>
+                        </article>
 
-                        <div class="divCard">
-                            <hr class="linhaCard">
-                            <div class="linguagensProgramacao">
-                                <h3 class="nomeLinguagem">C++</h3>
-                                <div class="divImgLinguagem">
-                                    <img class="imgLinguagem" src="imgs/c-.png" alt="C++">
-                                </div>
+                        <article class="card-projeto">
+                            <a class="card-imagem" href="https://saantanapgs.github.io/calculator/" target="_blank" rel="noopener noreferrer" aria-label="Abrir o projeto Web Calculator (abre em nova aba)">
+                                <img src="imgsProjetos/calculatorr.webp" alt="Captura de tela da calculadora web" width="900" height="471" loading="lazy">
+                            </a>
+                            <h3>Web Calculator</h3>
+                            <div class="card-detalhes">
+                                <p>Calculadora web com as operações básicas, feita para praticar lógica de programação e eventos em JavaScript.</p>
+                                <p class="tags">HTML · CSS · JavaScript</p>
+                                <a class="botao botao-pequeno" href="https://saantanapgs.github.io/calculator/" target="_blank" rel="noopener noreferrer">Ver projeto<span class="so-leitor"> Web Calculator (abre em nova aba)</span></a>
                             </div>
-                        </div>
+                        </article>
 
-                        <div class="divCard">
-                        <hr class="linhaCard">
-                        <div class="linguagensProgramacao">
-                            <h3 class="nomeLinguagem">Next</h3>
-                            <div class="divImgLinguagem">
-                                <img class="imgLinguagem" src="imgs/nextjs.svg" alt="Next">
+                        <article class="card-projeto">
+                            <a class="card-imagem" href="https://saantanapgs.github.io/weatherApp/" target="_blank" rel="noopener noreferrer" aria-label="Abrir o projeto Weather App (abre em nova aba)">
+                                <img src="imgsProjetos/weatherAPP.webp" alt="Captura de tela do aplicativo de previsão do tempo" width="900" height="471" loading="lazy">
+                            </a>
+                            <h3>Weather App</h3>
+                            <div class="card-detalhes">
+                                <p>Aplicativo de previsão do tempo que consulta uma API e mostra as condições climáticas de uma cidade.</p>
+                                <p class="tags">HTML · CSS · JavaScript · API</p>
+                                <a class="botao botao-pequeno" href="https://saantanapgs.github.io/weatherApp/" target="_blank" rel="noopener noreferrer">Ver projeto<span class="so-leitor"> Weather App (abre em nova aba)</span></a>
                             </div>
-                        </div>
-                    </div>
-                        
-                        <div class="divCard">
-                            <hr class="linhaCard">
-                            <div class="linguagensProgramacao">
-                                <h3 class="nomeLinguagem">Python</h3>
-                                <div class="divImgLinguagem">
-                                    <img class="imgLinguagem" src="imgs/python.png" alt="Python">
-                                </div>
+                        </article>
+
+                        <article class="card-projeto">
+                            <a class="card-imagem" href="https://api-github-o2incnj4y-meiazero0s-projects.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir o projeto GitHub API (abre em nova aba)">
+                                <img src="imgsProjetos/githubAPI.webp" alt="Captura de tela da consulta de perfil do GitHub" width="900" height="471" loading="lazy">
+                            </a>
+                            <h3>GitHub API</h3>
+                            <div class="card-detalhes">
+                                <p>Consulta de perfis do GitHub: digite um usuário e veja foto e nome usando a API pública do GitHub.</p>
+                                <p class="tags">HTML · CSS · JavaScript · API</p>
+                                <a class="botao botao-pequeno" href="https://api-github-o2incnj4y-meiazero0s-projects.vercel.app" target="_blank" rel="noopener noreferrer">Ver projeto<span class="so-leitor"> GitHub API (abre em nova aba)</span></a>
                             </div>
-                        </div>
+                        </article>
 
-                        <div class="divCard">
-                            <hr class="linhaCard">
-                            <div class="linguagensProgramacao">
-                                <h3 class="nomeLinguagem">Java</h3>
-                                <div class="divImgLinguagem">
-                                    <img class="imgLinguagem" src="imgs/java.png" alt="Java">
-                                </div>
+                        <article class="card-projeto">
+                            <a class="card-imagem" href="https://saantanapgs.github.io/to-Do-List/" target="_blank" rel="noopener noreferrer" aria-label="Abrir o projeto To-Do List (abre em nova aba)">
+                                <img src="imgsProjetos/todotasks.webp" alt="Captura de tela da lista de tarefas" width="900" height="471" loading="lazy">
+                            </a>
+                            <h3>To-Do List</h3>
+                            <div class="card-detalhes">
+                                <p>Lista de tarefas para adicionar, concluir e remover atividades, praticando manipulação do DOM.</p>
+                                <p class="tags">HTML · CSS · JavaScript</p>
+                                <a class="botao botao-pequeno" href="https://saantanapgs.github.io/to-Do-List/" target="_blank" rel="noopener noreferrer">Ver projeto<span class="so-leitor"> To-Do List (abre em nova aba)</span></a>
                             </div>
-                        </div>
+                        </article>
 
-                        <div class="divCard">
-                            <hr class="linhaCard">
-                            <div class="linguagensProgramacao">
-                                <h3 class="nomeLinguagem">PHP</h3>
-                                <div class="divImgLinguagem">
-                                    <img class="imgLinguagem" src="imgs/R.png" alt="Php">
-                                </div>
+                        <article class="card-projeto">
+                            <a class="card-imagem" href="https://form-mundo-senai-n7jfsbrgm-meiazero0s-projects.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir o projeto Formulário Mundo SENAI (abre em nova aba)">
+                                <img src="imgsProjetos/formMundoSENAI.webp" alt="Captura de tela do formulário Mundo SENAI" width="900" height="471" loading="lazy">
+                            </a>
+                            <h3>Formulário Mundo SENAI</h3>
+                            <div class="card-detalhes">
+                                <p>Formulário desenvolvido para o Mundo SENAI, com campos organizados e validação das informações.</p>
+                                <p class="tags">HTML · CSS · JavaScript</p>
+                                <a class="botao botao-pequeno" href="https://form-mundo-senai-n7jfsbrgm-meiazero0s-projects.vercel.app" target="_blank" rel="noopener noreferrer">Ver projeto<span class="so-leitor"> Formulário Mundo SENAI (abre em nova aba)</span></a>
                             </div>
+                        </article>
+
+                    </div>
+
+                    <button id="btnProximo" class="seta" type="button" aria-label="Próximo projeto">
+                        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M9 5v14l10-7z"/></svg>
+                    </button>
+                </div>
+
+                <p id="contadorProjetos" class="contador" aria-live="polite"></p>
+            </div>
+        </section>
+
+        <!-- ============ SKILLS ============ -->
+        <section id="skills" class="secao" aria-labelledby="tituloSkills">
+            <div class="container">
+                <h2 id="tituloSkills" class="titulo-secao">Skills</h2>
+                <p class="subtitulo-secao">Minhas principais habilidades e o nível de experiência em cada uma (estimativa pessoal).</p>
+
+                <ul class="lista-skills" id="listaSkills">
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/html.svg" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">HTML-5</span>
+                            <span class="skill-valor">100%</span>
                         </div>
-                    </div>
-        </div>
-        <div class="linhaDivisao">
-            <hr class="linhaDois">
-        </div>
-    <section id="divMeio2Projetos">
-            <h2 id="tituloProjetos">
-                Meus projetos
-            </h2>
-        <div id="divProjetos">
+                        <div class="barra" role="progressbar" aria-label="Nível em HTML-5" aria-valuemin="0" aria-valuemax="100" aria-valuenow="90">
+                            <div class="barra-preenchida" data-nivel="100"></div>
+                        </div>
+                    </li>
 
-            <div class="divCardsProjetos">
-                <div class="divImgProj">
-                <a href="https://saantanapgs.github.io/fizzsStore/" target="_blank">
-                    <div class="nomeProj">
-                        FizzSneakers (API)
-                    </div>
-                        <img class="imgProj" src="imgsProjetos/fizzSneakers.png">
-                    </div>
-                </a>
-            </div>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/css.svg" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">CSS-3</span>
+                            <span class="skill-valor">100%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em CSS-3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85">
+                            <div class="barra-preenchida" data-nivel="100"></div>
+                        </div>
+                    </li>
 
-            <div class="divCardsProjetos">
-                <div class="divImgProj">
-                <a href="https://saantanapgs.github.io/calculator/" target="_blank">
-                    <div class="nomeProj">
-                        Web Calculator
-                    </div>
-                        <img class="imgProj" src="imgsProjetos/calculatorr.png">
-                    </div>
-                </a>
-            </div>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/javascript.svg" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">JavaScript</span>
+                            <span class="skill-valor">90%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em JavaScript" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+                            <div class="barra-preenchida" data-nivel="90"></div>
+                        </div>
+                    </li>
 
-            <div class="divCardsProjetos">
-                <div class="divImgProj">
-                <a href="https://saantanapgs.github.io/weatherApp/" target="_blank">
-                    <div class="nomeProj">
-                        Weather App
-                    </div>
-                        <img class="imgProj" src="imgsProjetos/weatherAPP.png">
-                    </div>
-                </a>
-            </div>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/typescript.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">TypeScript</span>
+                            <span class="skill-valor">90%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em TypeScript" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+                            <div class="barra-preenchida" data-nivel="90"></div>
+                        </div>
+                    </li>
 
-            <div class="divCardsProjetos">
-                <div class="divImgProj">
-                <a href="https://api-github-o2incnj4y-meiazero0s-projects.vercel.app" target="_blank">
-                    <div class="nomeProj">
-                        GitHub API
-                    </div>
-                        <img class="imgProj" src="imgsProjetos/githubAPI.png">
-                    </div>
-                </a>
-            </div>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/react.svg" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">React</span>
+                            <span class="skill-valor">90%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em React" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+                            <div class="barra-preenchida" data-nivel="90"></div>
+                        </div>
+                    </li>
 
-            <div class="divCardsProjetos">
-                <div class="divImgProj">
-                <a href="https://saantanapgs.github.io/to-Do-List/" target="_blank">
-                    <div class="nomeProj">
-                        To-Do List
-                    </div>
-                        <img class="imgProj" src="imgsProjetos/todotasks.png">
-                    </div>
-                </a>
-            </div>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/node-js.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">Node.js</span>
+                            <span class="skill-valor">80%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em Node.js" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55">
+                            <div class="barra-preenchida" data-nivel="80"></div>
+                        </div>
+                    </li>
 
-            <div class="divCardsProjetos">
-                <div class="divImgProj">
-                <a href="https://form-mundo-senai-n7jfsbrgm-meiazero0s-projects.vercel.app" target="_blank">
-                    <div class="nomeProj">
-                        Formulário Mundo Senai
-                    </div>
-                        <img class="imgProj" src="imgsProjetos/formMundoSENAI.png">
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/java.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">Java</span>
+                            <span class="skill-valor">60%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em Java" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
+                            <div class="barra-preenchida" data-nivel="60"></div>
+                        </div>
+                    </li>
 
-        <div class="linhaDivisao">
-            <hr class="linhaTres">
-        </div>
-    <section id="divInferiorContatos">
-        <h2 id="tituloContato">Entre em contato</h2>
-        <div id="divContatos">
-            <div id="divContatoEmail">
-                <a href="https://mail.google.com/mail/u/0/#inbox?compose=jrjtXFBwdFfvKfqwkSDglttkkxWTBrBJpdCHkCkLnqFvcFXvfxKWFPzwvNkmmCcFVLChzDfh" target="_blank">
-                    <img id="emailImg" class="tamanhoImgs invertImgs" src="imgs/email.png" alt="E-mail">
-                </a>
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/python.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">Python</span>
+                            <span class="skill-valor">100%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em Python" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
+                            <div class="barra-preenchida" data-nivel="100"></div>
+                        </div>
+                    </li>
+
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/c-sharp.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">C#</span>
+                            <span class="skill-valor">80%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em C#" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65">
+                            <div class="barra-preenchida" data-nivel="80"></div>
+                        </div>
+                    </li>
+
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/c-.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">C++</span>
+                            <span class="skill-valor">75%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em C++" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                            <div class="barra-preenchida" data-nivel="75"></div>
+                        </div>
+                    </li>
+
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/nextjs.svg" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">Next.js</span>
+                            <span class="skill-valor">80%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em Next.js" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45">
+                            <div class="barra-preenchida" data-nivel="80"></div>
+                        </div>
+                    </li>
+
+                    <li class="skill">
+                        <div class="skill-topo">
+                            <span class="skill-icone"><img src="imgs/php.png" alt="" width="28" height="28"></span>
+                            <span class="skill-nome">PHP</span>
+                            <span class="skill-valor">60%</span>
+                        </div>
+                        <div class="barra" role="progressbar" aria-label="Nível em PHP" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40">
+                            <div class="barra-preenchida" data-nivel="60"></div>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div id="divContatoWhatsapp">
-                <a href="https://wa.me/5579998603465" target="_blank">
-                    <img id="whatsImg" class="tamanhoImgs invertImgs" src="imgs/whatsapp.png" alt="Whatsapp">
-                </a>
+        </section>
+
+        <!-- ============ CONTATO ============ -->
+        <section id="contato" class="secao secao-destaque" aria-labelledby="tituloContato">
+            <div class="container">
+                <h2 id="tituloContato" class="titulo-secao">Contato</h2>
+                <p class="subtitulo-secao">Quer conversar? Me envie uma mensagem pelo formulário ou pelas redes abaixo.</p>
+
+                <div class="contato-grade">
+                    <div class="painel">
+                        <h3>Localização</h3>
+                        <div class="mapa">
+                            <iframe
+                                title="Mapa mostrando a cidade de Aracaju, Sergipe"
+                                src="https://www.google.com/maps?q=Aracaju,Sergipe,Brasil&amp;output=embed"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen></iframe>
+                        </div>
+                        <p class="legenda-mapa">Aracaju, Sergipe, Brasil</p>
+
+                        <ul class="redes">
+                            <li>
+                                <a href="https://www.instagram.com/wpgustavoo/" target="_blank" rel="noopener noreferrer" aria-label="Instagram (abre em nova aba)">
+                                    <img class="icone-rede" src="imgs/instagram.png" alt="" width="28" height="28">
+                                    <span>Instagram</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://wa.me/5579998603465" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (abre em nova aba)">
+                                    <img class="icone-rede" src="imgs/whatsapp.png" alt="" width="28" height="28">
+                                    <span>WhatsApp</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:rpggustavo56@gmail.com" aria-label="Enviar e-mail para rpggustavo56@gmail.com">
+                                    <img class="icone-rede" src="imgs/email.png" alt="" width="28" height="28">
+                                    <span>rpggustavo56@gmail.com</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="painel">
+                        <h3>Envie uma mensagem</h3>
+                        <form id="formContato" novalidate>
+                            <p class="aviso-obrigatorio">Campos marcados com * são obrigatórios.</p>
+
+                            <div class="campo">
+                                <label for="nome">Nome *</label>
+                                <input id="nome" name="nome" type="text" autocomplete="name" required aria-required="true" aria-describedby="erroNome">
+                                <p class="erro" id="erroNome" aria-live="polite"></p>
+                            </div>
+
+                            <div class="campo">
+                                <label for="email">E-mail *</label>
+                                <input id="email" name="email" type="email" autocomplete="email" required aria-required="true" aria-describedby="erroEmail">
+                                <p class="erro" id="erroEmail" aria-live="polite"></p>
+                            </div>
+
+                            <div class="campo">
+                                <label for="mensagem">Mensagem *</label>
+                                <textarea id="mensagem" name="mensagem" rows="5" required aria-required="true" aria-describedby="erroMensagem"></textarea>
+                                <p class="erro" id="erroMensagem" aria-live="polite"></p>
+                            </div>
+
+                            <div class="botoes-form">
+                                <button type="submit" class="botao">Enviar</button>
+                                <button type="reset" class="botao botao-secundario">Limpar</button>
+                            </div>
+
+                            <p id="statusForm" class="status-form" role="status"></p>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div id="divContatoInstagram">
-                <a href="https://www.instagram.com/wpgustavoo/" target="_blank">
-                    <img id="instaImg" class="tamanhoImgs invertImgs" src="imgs/instagram.png" alt="Instagram">
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <p>Pedro Santana &copy; <span id="anoAtual">2026</span>. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
